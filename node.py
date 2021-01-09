@@ -1,8 +1,6 @@
 class Node:
-    def __init__(self, agent, variable, meeting):
+    def __init__(self, agent):
         self.agents = agent
-        self.variable = variable
-        self.meeting = meeting
         self.parent
         self.children
         self.pseudoparent
