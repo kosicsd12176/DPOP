@@ -1,6 +1,3 @@
-
-
-
 class Variable:
     def __init__(self, variable_type, utility):
         self.variable = variable_type

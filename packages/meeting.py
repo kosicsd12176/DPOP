@@ -9,3 +9,6 @@ class Meeting:
     def get_meeting_utility(self):
         return  self.meeting, self.utility
 
+    def set_meeting_utility(self, meeting_type, utility):
+        self.meeting = meeting_type
+        self.utility = utility
