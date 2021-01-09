@@ -38,7 +38,7 @@ agent1.set_variable(variable)
 variable.set_variable_utility(8,20)
 agent1.set_variable(variable)
 print(agent1.get_meeting_and_utilities())
-print(agent1.get_variable())
+print(agent1.get_variable_and_utilities())
 
 #for i in agent1.get_variable():
 
