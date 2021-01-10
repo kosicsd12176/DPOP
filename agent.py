@@ -1,5 +1,6 @@
 from experiment.packages.meeting import Meeting
 from experiment.packages.variable import Variable
+import numpy
 
 
 class Agent:
@@ -8,6 +9,8 @@ class Agent:
         self.meetings_utilities = []
         self.variables_domains = []
         self.variables_utilities = []
+        self.sum_of_utilities = 0
+
 
 
     def set_meeting(self, Meeting):
@@ -26,6 +29,14 @@ class Agent:
 
     def get_variable_and_utilities(self):
         return self.variables_domains, self.variables_utilities
+
+    def get_programmed_meeting_utility(self, value):
+        utility_of_meeting = self.meetings_utilities[value-1]
+        utility_of_variable = self.variables_utilities[numpy.argmax(self.variables_utilities)]
+        time_slot = self.variables_domains[numpy.argmax(self.variables_utilities)]
+        utility_programmed_meeting_utility = utility_of_meeting * utility_of_variable
+        self.sum_of_utilities += utility_programmed_meeting_utility
+        return  utility_programmed_meeting_utility, time_slot
 
 
 

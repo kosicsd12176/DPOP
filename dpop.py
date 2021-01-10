@@ -3,6 +3,7 @@ from experiment.packages.meeting import Meeting
 from experiment.agent import Agent
 from experiment.node import Node
 
+
 #create agent
 agent1 = Agent()
 agent2 = Agent()
@@ -52,3 +53,4 @@ node3.set_children_node(agent2)
 
 
 
+print(agent1.get_programmed_meeting_utility(1))
