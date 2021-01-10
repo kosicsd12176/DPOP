@@ -36,7 +36,7 @@ class Agent:
         time_slot = self.variables_domains[numpy.argmax(self.variables_utilities)]
         utility_programmed_meeting_utility = utility_of_meeting * utility_of_variable
         self.sum_of_utilities += utility_programmed_meeting_utility
-        return  utility_programmed_meeting_utility, time_slot
+        return  utility_programmed_meeting_utility, time_slot, self.sum_of_utilities
 
 
 
