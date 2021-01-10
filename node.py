@@ -1,10 +1,6 @@
 class Node:
     def __init__(self, agent):
         self.agents = agent
-        self.parent
-        self.children
-        self.pseudoparent
-        self.pseudochildren
         self.root = False
 
     def set_parent_node(self, node):

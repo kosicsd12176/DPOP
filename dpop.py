@@ -1,9 +1,12 @@
 from experiment.packages.variable import Variable
 from experiment.packages.meeting import Meeting
 from experiment.agent import Agent
+from experiment.node import Node
 
 #create agent
 agent1 = Agent()
+agent2 = Agent()
+agent3 = Agent()
 
 #set agent's first meeting with utility
 meeting = Meeting(1,50)
@@ -37,8 +40,15 @@ agent1.set_variable(variable)
 
 variable.set_variable_utility(8,20)
 agent1.set_variable(variable)
-print(agent1.get_meeting_and_utilities())
-print(agent1.get_variable_and_utilities())
 
-#for i in agent1.get_variable():
+node1 = Node(agent1)
+node2 = Node(agent2)
+node3 = Node(agent3)
+
+node1.set_parent_node(node2)
+node2.set_children_node(node1)
+node2.set_parent_node(node3)
+node3.set_children_node(agent2)
+
+
 

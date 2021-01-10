@@ -15,6 +15,7 @@ class Agent:
         self.meetings_domains.append(domain)
         self.meetings_utilities.append(utility)
 
+
     def set_variable(self, Variable):
         domain, utility = Variable.get_variable_utility()
         self.variables_domains.append(domain)
