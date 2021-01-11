@@ -50,7 +50,9 @@ node1.set_parent_node(node2)
 node2.set_children_node(node1)
 node2.set_parent_node(node3)
 node3.set_children_node(agent2)
+node3.set_root(True)
 
 
+print(agent1.get_relations().shape)
 
 

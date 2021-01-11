@@ -2,6 +2,11 @@ class Node:
     def __init__(self, agent):
         self.agent = agent
         self.root = False
+        self.parent = None
+        self.children = None
+        self.pseudoparent = None
+        self.pseudochildren = None
+
 
     def set_parent_node(self, node):
         self.parent = node
@@ -20,16 +25,16 @@ class Node:
 
 
     def get_parent_node(self):
-        return self.parent, self.agent
+        return self.parent
 
     def get_children_node(self):
-        return self.children, self.agent
+        return self.children
 
     def get_pseudoparent_node(self):
-        return self.pseudoparent, self.agent
+        return self.pseudoparent
 
     def get_pseudochildren_node(self):
-        return  self.pseudochildren, self.agent
+        return  self.pseudochildren
 
     def get_root(self):
         return self.root

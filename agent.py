@@ -1,6 +1,7 @@
 from experiment.packages.meeting import Meeting
 from experiment.packages.variable import Variable
 import numpy
+from numpy import array
 
 
 class Agent:
@@ -9,6 +10,7 @@ class Agent:
         self.meetings_utilities = []
         self.preferences_domains = []
         self.preferences_utilities = []
+        self.relations = []
 
 
 
@@ -27,10 +29,17 @@ class Agent:
     def get_meeting_and_utilities(self):
         return self.meetings_domains, self.meetings_utilities
 
-    def get_variable_and_utilities(self):
+    def get_preferences_and_utilities(self):
         return self.preferences_domains, self.preferences_utilities
 
-
+    def get_relations(self, ):
+        l = []
+        for i in range(len(self.meetings_domains)):
+            for j in self.preferences_utilities:
+                #self.meetings_domains[i]
+                l.append(self.meetings_utilities[i]*j)
+            self.relations.append(l)
+        return array(self.relations)
 
 
 
