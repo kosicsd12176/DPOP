@@ -53,6 +53,6 @@ node3.set_children_node(agent2)
 node3.set_root(True)
 
 
-print(agent1.get_relations().shape)
+print(agent1.get_relations())
 
 

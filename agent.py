@@ -36,9 +36,9 @@ class Agent:
         l = []
         for i in range(len(self.meetings_domains)):
             for j in self.preferences_utilities:
-                #self.meetings_domains[i]
                 l.append(self.meetings_utilities[i]*j)
             self.relations.append(l)
+            l = []
         return array(self.relations)
 
 
