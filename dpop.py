@@ -19,28 +19,28 @@ agent1.set_meeting(meeting)
 
 #set agent's variable with utility
 variable = Variable(1,1)
-agent1.set_variable(variable)
+agent1.set_preference(variable)
 
 variable.set_variable_utility(2,2)
-agent1.set_variable(variable)
+agent1.set_preference(variable)
 
 variable.set_variable_utility(3,3)
-agent1.set_variable(variable)
+agent1.set_preference(variable)
 
 variable.set_variable_utility(4,4)
-agent1.set_variable(variable)
+agent1.set_preference(variable)
 
 variable.set_variable_utility(5,0)
-agent1.set_variable(variable)
+agent1.set_preference(variable)
 
 variable.set_variable_utility(6,5)
-agent1.set_variable(variable)
+agent1.set_preference(variable)
 
 variable.set_variable_utility(7,10)
-agent1.set_variable(variable)
+agent1.set_preference(variable)
 
 variable.set_variable_utility(8,20)
-agent1.set_variable(variable)
+agent1.set_preference(variable)
 
 node1 = Node(agent1)
 node2 = Node(agent2)
@@ -53,4 +53,4 @@ node3.set_children_node(agent2)
 
 
 
-print(agent1.get_programmed_meeting_utility(1))
+
