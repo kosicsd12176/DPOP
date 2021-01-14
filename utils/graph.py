@@ -7,9 +7,9 @@ def _find_neighbors_relations(node, relations, nodes):
     node_neighbors = []
     node_relations = []
     for r in relations:
-        if node.name in r.agent_meetings:
+        if node.name in r.variables:
             node_relations.append(r)
-            meetings = list(r.agent_meetings)
+            meetings = list(r.variables)
             meetings.remove(node.name)
             for n in nodes:
                 if n.name in meetings and n not in node_neighbors:
@@ -18,10 +18,10 @@ def _find_neighbors_relations(node, relations, nodes):
     return node_neighbors, node_relations
 
 
-def generate_dfs_tree(agent_meetings, relations, root=None):
-    # build a node for each of the agent_meetings eg a1_m1, a1_m2 etc
+def generate_dfs_tree(variables, relations, root=None):
+    # build a node for each of the variables eg a1_m1, a1_m2 etc
     nodes = []
-    for key, value in agent_meetings.items():
+    for key, value in variables.items():
         n = Node(value)
         nodes.append(n)
     for n in nodes:
@@ -37,7 +37,7 @@ def generate_dfs_tree(agent_meetings, relations, root=None):
         root = nodes[-1]
     else:
         for n in nodes:
-            if n.agent_meeting == root:
+            if n.variable == root:
                 root = n
                 break
 

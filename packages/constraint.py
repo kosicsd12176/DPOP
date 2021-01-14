@@ -1,11 +1,11 @@
 class Constraint(object):
 
-    def __init__(self, name: str, constraint_type: str, agent_meetings=None):
-        if agent_meetings is None:
-            agent_meetings = []
+    def __init__(self, name: str, constraint_type: str, variables=None):
+        if variables is None:
+            variables = []
         self._name = name
         self._constraint_type = constraint_type
-        self._agent_meetings = agent_meetings
+        self._variables = variables
 
     @property
     def name(self) -> str:
@@ -16,5 +16,5 @@ class Constraint(object):
         return self._constraint_type
 
     @property
-    def agent_meetings(self) -> list:
-        return self._agent_meetings
+    def variables(self) -> list:
+        return self._variables

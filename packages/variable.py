@@ -1,4 +1,4 @@
-class AgentMeeting(object):
+class Variable(object):
 
     def __init__(self, agent: str, meeting: str, utility: int):
         self._name = "a{}_m{}".format(agent, meeting)
@@ -35,4 +35,4 @@ class AgentMeeting(object):
             return self.name == other.name
 
     def clone(self):
-        return AgentMeeting(self.agent, self.meeting, self.utility)
+        return Variable(self.agent, self.meeting, self.utility)

@@ -1,6 +1,6 @@
 import sys
 
-from packages.agentmeeting import AgentMeeting
+from packages.variable import Variable
 from packages.agent import Agent
 from packages.node import Node
 from generators.MSP_Generator import problem_generator
@@ -18,10 +18,10 @@ def dcop_process(args):
 
     filepath = problem_generator(agents_number)
     dcop = load_dcop_from_file(filepath)
-    agent_meetings = dcop["agent_meetings"]
-    constraints = constraint_builder(dcop["agents_number"], dcop["meetings_number"], agent_meetings)
-    root = generate_dfs_tree(agent_meetings, constraints)
-    draw_pstree(root, agent_meetings, "simulations/pseudotree_{}.svg".format(dcop["agents_number"]))
+    variables = dcop["variables"]
+    constraints = constraint_builder(dcop["agents_number"], dcop["meetings_number"], variables)
+    root = generate_dfs_tree(variables, constraints)
+    draw_pstree(root, variables, "simulations/pseudotree_{}.svg".format(dcop["agents_number"]))
 
 
 def test():
@@ -33,12 +33,12 @@ def test():
     # set agent's first meeting with utility
     # meeting = Meeting(1, 50)
     # agent1.set_meeting(meeting)
-    meeting = AgentMeeting("1", "1", 50)
-    agent1.add_agent_meeting({meeting.name: meeting})
+    meeting = Variable("1", "1", 50)
+    agent1.add_variable({meeting.name: meeting})
 
     # set agent's second meeting with utility
-    meeting = AgentMeeting("1", "2", 50)
-    agent1.add_agent_meeting({meeting.name: meeting})
+    meeting = Variable("1", "2", 50)
+    agent1.add_variable({meeting.name: meeting})
 
     # set agent's variable with utility
     agent1.add_preference_utility({1: 1})
@@ -50,7 +50,7 @@ def test():
     agent1.add_preference_utility({7: 10})
     agent1.add_preference_utility({8: 20})
 
-    node1 = Node(AgentMeeting("1", "1", 50))
+    node1 = Node(Variable("1", "1", 50))
     node2 = Node(agent2)
     node3 = Node(agent3)
 

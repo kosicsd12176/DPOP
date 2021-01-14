@@ -1,10 +1,10 @@
-from packages.agentmeeting import AgentMeeting
+from packages.variable import Variable
 
 
 class Node(object):
 
-    def __init__(self, agent_meeting: AgentMeeting):
-        self._agent_meeting = agent_meeting
+    def __init__(self, variable: Variable):
+        self._variable = variable
         self._neighbors = []
         self.relations = []
         self.parent = None
@@ -16,15 +16,15 @@ class Node(object):
 
     @property
     def name(self) -> str:
-        return self._agent_meeting.name
+        return self._variable.name
 
     @property
-    def agent_meetings(self) -> list:
-        return [self._agent_meeting]
+    def variables(self) -> list:
+        return [self._variable]
 
     @property
-    def agent_meeting(self) -> AgentMeeting:
-        return self._agent_meeting
+    def variable(self) -> Variable:
+        return self._variable
 
     def handle_token(self, sender, token):
         token = token[:]
@@ -76,7 +76,7 @@ class Node(object):
         return len(self._neighbors)
 
     def __repr__(self):
-        return "Node " + self.agent_meeting.name
+        return "Node " + self.variable.name
 
     def __str__(self):
-        return "Node " + self.agent_meeting.name
+        return "Node " + self.variable.name
