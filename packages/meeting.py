@@ -1,6 +1,4 @@
 
-
-
 class Meeting:
     def __init__(self, meeting, utility):
         self.meeting = meeting
