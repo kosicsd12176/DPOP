@@ -16,9 +16,9 @@ def generate_all_pairs(elements):
 
 def difference_constraints_builder(agents_number: int, meetings_number: int, variables: dict) -> list:
     difference_constraints = []
-    for agent in range(1, agents_number + 1):
+    for agent in range(0, agents_number):
         variable_list = []
-        for meeting in range(1, meetings_number + 1):
+        for meeting in range(0, meetings_number):
             variable = variables.get("a{}_m{}".format(agent, meeting))
             if variable is not None:
                 variable_list.append(variable.name)
@@ -30,9 +30,9 @@ def difference_constraints_builder(agents_number: int, meetings_number: int, var
 
 def equality_constraints_builder(agents_number: int, meetings_number: int, variables: dict) -> list:
     equality_constraints = []
-    for meeting in range(1, meetings_number + 1):
+    for meeting in range(0, meetings_number):
         variable_list = []
-        for agent in range(1, agents_number + 1):
+        for agent in range(0, agents_number):
             variable = variables.get("a{}_m{}".format(agent, meeting))
             if variable is not None:
                 variable_list.append(variable.name)

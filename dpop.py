@@ -3,7 +3,7 @@ import sys
 from packages.variable import Variable
 from packages.agent import Agent
 from packages.node import Node
-from generators.MSP_Generator import problem_generator
+from generators.generator import problem_generator
 from utils.constraint_builder import constraint_builder
 from utils.fileparser import load_dcop_from_file
 from utils.graph import generate_dfs_tree, draw_pstree

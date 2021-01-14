@@ -257,20 +257,12 @@ def export_to_file(node_index, N, M, V):
             if (len(node.Meetings) > 0):
                 f.write(str(node.id) + ";" + str(i) + ";" + str(node.timeslot_utils[i]) + "\n")
 
+    return f.name
 
-def main():
-    if len(sys.argv) < 2:
-        print("Provide input for Agent number (example: python generator.py 50)")
-        sys.exit()
-    val = sys.argv[1]
 
-    try:
-        N = int(val)
-    except ValueError:
-        print("Provide Number!")
-        sys.exit()
+def problem_generator(agents_number):
 
-    index = create_hierarchy(N)
+    index = create_hierarchy(agents_number)
     MM = Meetings(index)
 
     run = 1
@@ -285,8 +277,5 @@ def main():
 
     MM.calculate_variable_num()
     MM.print_meeting_distribution()
-    export_to_file(index, N, MM.M, MM.num_vars)
-
-
-if __name__ == '__main__':
-    main()
+    filepath = export_to_file(index, agents_number, MM.M, MM.num_vars)
+    return filepath
