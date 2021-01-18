@@ -246,7 +246,7 @@ def create_hierarchy(N):
 
 
 def export_to_file(node_index, N, M, V):
-    f = open("DCOP_Problem_" + str(N), "w")
+    f = open("simulations/DCOP_Problem_" + str(N), "w")
     f.write(str(N) + ";" + str(M) + ";" + str(V) + "\n")
     for node in node_index.values():
         for m in node.Meetings.keys():

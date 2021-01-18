@@ -18,11 +18,11 @@ def _find_neighbors_relations(node, relations, nodes):
     return node_neighbors, node_relations
 
 
-def generate_dfs_tree(variables, relations, root=None):
+def generate_dfs_tree(variables, relations, agents, root=None):
     # build a node for each of the variables eg a1_m1, a1_m2 etc
     nodes = []
     for key, value in variables.items():
-        n = Node(value)
+        n = Node(value, agents.get(value.agent))
         nodes.append(n)
     for n in nodes:
         neighbors, rels = _find_neighbors_relations(n, relations, nodes)
@@ -43,8 +43,29 @@ def generate_dfs_tree(variables, relations, root=None):
 
     token = []
     root.handle_token(None, token)
-
     return root
+
+
+def _visit_tree(root):
+    """
+    Iterator: visit a tree, yielding each node in DFS order.
+
+    :param root: the root node of the tree.
+    """
+    yield root
+    for c in root.children:
+        # Using 'yield from would be nicer, but is only available with python
+        #  >= 3.3
+        for n in _visit_tree(c):
+            yield n
+
+
+def get_nodes(root: Node):
+    nodes = []
+    for n in _visit_tree(root):
+        nodes.append(n)
+    nodes.reverse()
+    return nodes
 
 
 def draw_pstree(root: Node, meetings: dict, filename: str):

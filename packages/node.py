@@ -1,9 +1,10 @@
+from packages.agent import Agent
 from packages.variable import Variable
 
 
 class Node(object):
 
-    def __init__(self, variable: Variable):
+    def __init__(self, variable: Variable, agent: Agent):
         self._variable = variable
         self._neighbors = []
         self.relations = []
@@ -12,7 +13,11 @@ class Node(object):
         self.pseudo_children = []
         self.children = []
         self._visited = []
+        self._utilities = []
+        for utility in agent.preferences_utilities.items():
+            self._utilities.append(variable.utility * utility[1])
         self.root = False
+        self._util_messages = {}
 
     @property
     def name(self) -> str:
@@ -25,6 +30,17 @@ class Node(object):
     @property
     def variable(self) -> Variable:
         return self._variable
+
+    @property
+    def utilities(self) -> list:
+        return self._utilities
+
+    @property
+    def util_messages(self) -> dict:
+        return self._util_messages
+
+    def set_util_message(self, node_name: str, message: list):
+        self._util_messages[node_name] = message
 
     def handle_token(self, sender, token):
         token = token[:]

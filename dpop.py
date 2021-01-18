@@ -6,7 +6,8 @@ from packages.node import Node
 from generators.generator import problem_generator
 from utils.constraint_builder import constraint_builder
 from utils.fileparser import load_dcop_from_file
-from utils.graph import generate_dfs_tree, draw_pstree
+from utils.graph import generate_dfs_tree, draw_pstree, get_nodes
+from utils.util_message import util_messages
 
 
 def dcop_process(args):
@@ -20,7 +21,8 @@ def dcop_process(args):
     dcop = load_dcop_from_file(filepath)
     variables = dcop["variables"]
     constraints = constraint_builder(dcop["agents_number"], dcop["meetings_number"], variables)
-    root = generate_dfs_tree(variables, constraints)
+    root = generate_dfs_tree(variables, constraints, dcop["agents"])
+    util_messages(root)
     draw_pstree(root, variables, "simulations/pseudotree_{}.svg".format(dcop["agents_number"]))
 
 
