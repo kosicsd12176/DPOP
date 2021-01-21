@@ -1,3 +1,5 @@
+from pandas import DataFrame
+
 from packages.agent import Agent
 from packages.variable import Variable
 
@@ -39,7 +41,7 @@ class Node(object):
     def util_messages(self) -> dict:
         return self._util_messages
 
-    def set_util_message(self, node_name: str, message: list):
+    def set_util_message(self, node_name: str, message: DataFrame):
         self._util_messages[node_name] = message
 
     def handle_token(self, sender, token):
