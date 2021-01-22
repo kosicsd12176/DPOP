@@ -1,58 +1,31 @@
-from experiment.packages.variable import Variable
-from experiment.packages.meeting import Meeting
-from experiment.agent import Agent
-from experiment.node import Node
+import sys
+
+from packages.variable import Variable
+from packages.agent import Agent
+from packages.node import Node
+from generators.generator import problem_generator
+from utils.constraint_builder import constraint_builder
+from utils.fileparser import load_dcop_from_file
+from utils.graph import generate_dfs_tree, draw_pstree, get_nodes
+from utils.util_message import util_messages, value_messages
 
 
-#create agent
-agent1 = Agent()
-agent2 = Agent()
-agent3 = Agent()
+def dcop_process(args):
+    try:
+        agents_number = int(args.agents_number)
+    except ValueError:
+        print("Provide Number!")
+        sys.exit()
 
-#set agent's first meeting with utility
-meeting = Meeting(1,50)
-agent1.set_meeting(meeting)
-
-#set agent's second meeting with utility
-meeting.set_meeting_utility(2,50)
-agent1.set_meeting(meeting)
-
-#set agent's variable with utility
-variable = Variable(1,1)
-agent1.set_preference(variable)
-
-variable.set_variable_utility(2,2)
-agent1.set_preference(variable)
-
-variable.set_variable_utility(3,3)
-agent1.set_preference(variable)
-
-variable.set_variable_utility(4,4)
-agent1.set_preference(variable)
-
-variable.set_variable_utility(5,0)
-agent1.set_preference(variable)
-
-variable.set_variable_utility(6,5)
-agent1.set_preference(variable)
-
-variable.set_variable_utility(7,10)
-agent1.set_preference(variable)
-
-variable.set_variable_utility(8,20)
-agent1.set_preference(variable)
-
-node1 = Node(agent1)
-node2 = Node(agent2)
-node3 = Node(agent3)
-
-node1.set_parent_node(node2)
-node2.set_children_node(node1)
-node2.set_parent_node(node3)
-node3.set_children_node(agent2)
-node3.set_root(True)
+    filepath = problem_generator(agents_number)
+    dcop = load_dcop_from_file(filepath)
+    variables = dcop["variables"]
+    constraints = constraint_builder(dcop["agents_number"], dcop["meetings_number"], variables)
+    root = generate_dfs_tree(variables, constraints, dcop["agents"])
+    util_messages(root)
+    value_messages(root)
+    draw_pstree(root, variables, "simulations/pseudotree_{}.svg".format(dcop["agents_number"]))
 
 
-print(agent1.get_relations())
 
 
