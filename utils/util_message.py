@@ -71,51 +71,46 @@ def value_messages(root: Node):
             value_message_propagation(node)
 
 
-
+counter = []
 def value_message_propagation(node: Node):
-    counter = []
+
 
     if node.root:
         node.variable.set_assigment(np.argmax(node.utilities))
-        print("{} assigment: {}".format(node.name, node.variable._assigment))
+        print("{} assigment: {} with utilities: {}".format(node.name, node.variable._assigment, node.utilities))
+
     counter.append(node)
-    for iterator in counter:
-        print(iterator.variable.agent)
     for relation in node.relations:
         if relation.constraint_type == 'equality':
             for child in node.children:
-               if child.name in relation.variables:
-                    print("{}'s child different agent it means equality {}".format(node.name,child.name))
-                    child.variable.set_assigment(node.variable.assigment)
-                    print("{}'s assigment after equality with {}: {}".format(child.name,node.name,child.variable.assigment))
+                if child.variable.assigment == -1:
+                    if child.name in relation.variables:
+                        child.variable.set_assigment(node.variable.assigment)
+                        print("{}'s assigment after equality with {}: {}".format(child.name, node.name, child.variable.assigment))
 
+            for pseudo_child in node.pseudo_children:
+                if pseudo_child.variable.assigment == -1:
+                    if pseudo_child.name in relation.variables:
+                        pseudo_child.variable.set_assigment(node.variable.assigment)
+                        print("{}'s assigment after equality with pseudoparent {}: {}".format(pseudo_child.name,node.name,pseudo_child.variable.assigment))
 
         if relation.constraint_type == 'difference':
             for child in node.children:
-                if child.name in relation.variables:
-                    print("{}'s child same agent it means different timeslots {}".format(node.name, child.name))
-
-                        #if child.variable.agent == iterator.variable.agent:
-                            #child.utilities[iterator.variable.assigment] = -1
-                    child.utilities[node.variable.assigment] = -1
-                    child.variable.set_assigment(np.argmax(child.utilities))
-                    print("{}'s assigment after difference with {}: {}".format(child.name, node.name,child.variable.assigment))
-
-
+                if child.variable.assigment == -1:
+                    if child.name in relation.variables:
+                        for iterator in counter:
+                            if child.variable.agent == iterator.variable.agent:
+                                child.utilities[iterator.variable.assigment] = -1
+                        child.utilities[node.variable.assigment] = -1
+                        child.variable.set_assigment(np.argmax(child.utilities))
+                        print("{}'s assigment after difference with {}: {} with utilities: {}".format(child.name, node.name, child.variable.assigment, child.utilities))
 
 
-            #for pseudo_child in node.pseudo_children:
-                #print("{}'s pseudo child with different agent: {}".format(node.name,pseudo_child.name))
 
 
-        '''if node.parent.name in relation.variables:
-            util_join_matrix[node.parent.name] = np.add.outer(node.parent.utilities, node.utilities)
-        else:
-            for pseudo_parent in node.pseudo_parents:
-                if pseudo_parent.name in relation.variables:
-                    util_join_matrix[pseudo_parent.name] = np.add.outer(pseudo_parent.utilities, node.utilities)
 
-    join_utilities = generate_join_utils(util_join_matrix, node)
 
-    node.parent.set_util_message(node.name, join_utilities)'''
+
+
+
 
