@@ -53,11 +53,13 @@ def generate_join_utils(util_join_matrix: dict, node: Node):
             join_utilities.at[counter, node_name] = tp[key]
 
             # include util message from children
-            if node_name in node.util_messages.keys():
-                util_message = node.util_messages[node_name]
-                filtered_utilities = util_message.loc[(util_message[node_name] == tp[key])
-                                                      & (util_message[node.name].isin(list(range(1, 8))))]
-                combined_utilities += filtered_utilities['utility']
+            for k, util_message in node.util_messages.items():
+                if hasattr(util_message, node_name):
+                    filtered_utilities = util_message.loc[(util_message[node_name] == tp[key])
+                                                          & (util_message[node.name].isin(list(range(1, 9))))]
+                    combined_utilities += filtered_utilities['utility']
+                else:
+                    combined_utilities += util_message['utility']
 
         join_utilities.at[counter, 'utility'] = max(combined_utilities)
         counter += 1
@@ -65,16 +67,15 @@ def generate_join_utils(util_join_matrix: dict, node: Node):
     return join_utilities
 
 
-
 def value_messages(root: Node):
     for node in get_nodes_reverse(root):
-            value_message_propagation(node)
+        value_message_propagation(node)
 
 
 counter = []
+
+
 def value_message_propagation(node: Node):
-
-
     if node.root:
         node.variable.set_assigment(np.argmax(node.utilities))
         print("{} assigment: {} with utilities: {}".format(node.name, node.variable._assigment, node.utilities))
@@ -86,13 +87,16 @@ def value_message_propagation(node: Node):
                 if child.variable.assigment == -1:
                     if child.name in relation.variables:
                         child.variable.set_assigment(node.variable.assigment)
-                        print("{}'s assigment after equality with {}: {}".format(child.name, node.name, child.variable.assigment))
+                        print("{}'s assigment after equality with {}: {}".format(child.name, node.name,
+                                                                                 child.variable.assigment))
 
             for pseudo_child in node.pseudo_children:
                 if pseudo_child.variable.assigment == -1:
                     if pseudo_child.name in relation.variables:
                         pseudo_child.variable.set_assigment(node.variable.assigment)
-                        print("{}'s assigment after equality with pseudoparent {}: {}".format(pseudo_child.name,node.name,pseudo_child.variable.assigment))
+                        print("{}'s assigment after equality with pseudoparent {}: {}".format(pseudo_child.name,
+                                                                                              node.name,
+                                                                                              pseudo_child.variable.assigment))
 
         if relation.constraint_type == 'difference':
             for child in node.children:
@@ -103,14 +107,7 @@ def value_message_propagation(node: Node):
                                 child.utilities[iterator.variable.assigment] = -1
                         child.utilities[node.variable.assigment] = -1
                         child.variable.set_assigment(np.argmax(child.utilities))
-                        print("{}'s assigment after difference with {}: {} with utilities: {}".format(child.name, node.name, child.variable.assigment, child.utilities))
-
-
-
-
-
-
-
-
-
-
+                        print("{}'s assigment after difference with {}: {} with utilities: {}".format(child.name,
+                                                                                                      node.name,
+                                                                                                      child.variable.assigment,
+                                                                                                      child.utilities))
