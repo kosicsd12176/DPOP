@@ -1,6 +1,7 @@
 import pygraphviz as pgv
 
 from packages.node import Node
+from utils import constants
 
 
 def _find_neighbors_relations(node, relations, nodes):
@@ -72,6 +73,17 @@ def get_nodes_reverse(root: Node):
         for n in _visit_tree(root):
             nodes.append(n)
         return nodes
+
+def draw_constraint_graph(meetings: dict, constraints: dict, filename: str):
+    G = pgv.AGraph(remincross=True)
+    G.add_nodes_from(meetings.keys())
+    for constraint in constraints:
+        if constraint.constraint_type == constants.EQUALITY_CONSTRAINT:
+            G.add_edge(constraint.variables[0], constraint.variables[1], color='green', dir="none")
+        else:
+            G.add_edge(constraint.variables[0], constraint.variables[1], color='red', dir="none")
+        G.draw(filename, prog='dot', format='svg')
+
 
 def draw_pstree(root: Node, meetings: dict, filename: str):
     G = pgv.AGraph(remincross=True)

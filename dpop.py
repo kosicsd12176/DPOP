@@ -3,10 +3,12 @@ import sys
 from packages.variable import Variable
 from packages.agent import Agent
 from packages.node import Node
+import pandas as pd
+import numpy as np
 from generators.generator import problem_generator
 from utils.constraint_builder import constraint_builder
 from utils.fileparser import load_dcop_from_file
-from utils.graph import generate_dfs_tree, draw_pstree, get_nodes
+from utils.graph import generate_dfs_tree, draw_pstree, get_nodes, draw_constraint_graph
 from utils.util_message import util_messages, value_messages
 
 
@@ -25,6 +27,7 @@ def dcop_process(args):
     util_messages(root)
     value_messages(root)
     draw_pstree(root, variables, "simulations/pseudotree_{}.svg".format(dcop["agents_number"]))
+    draw_constraint_graph(variables, constraints, "simulations/constraint_graph_{}.svg".format(dcop["agents_number"]))
 
 
 
