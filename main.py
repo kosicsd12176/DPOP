@@ -1,5 +1,6 @@
 import argparse
 import time
+
 from dpop import dcop_process
 
 

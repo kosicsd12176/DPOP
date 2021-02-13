@@ -1,4 +1,5 @@
 from itertools import product
+from multiprocessing import Process, current_process
 import numpy as np
 import pandas as pd
 from packages.node import Node
@@ -45,7 +46,7 @@ def util_messages(root: Node):
 
 
 
-def generate_join_utils(util_join_matrix: dict, node: Node):
+async def generate_join_utils(util_join_matrix: dict, node: Node):
     keys = list(util_join_matrix.keys())
     keys.append('utility')
     counter = 0
