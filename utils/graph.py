@@ -67,11 +67,20 @@ def get_nodes(root: Node):
     nodes.reverse()
     return nodes
 
+
+def get_nodes_dict(root: Node):
+    nodes = {}
+    for n in _visit_tree(root):
+        nodes[n.name] = n
+    return nodes
+
+
 def get_nodes_reverse(root: Node):
-        nodes = []
-        for n in _visit_tree(root):
-            nodes.append(n)
-        return nodes
+    nodes = []
+    for n in _visit_tree(root):
+        nodes.append(n)
+    return nodes
+
 
 def draw_pstree(root: Node, meetings: dict, filename: str):
     G = pgv.AGraph(remincross=True)
