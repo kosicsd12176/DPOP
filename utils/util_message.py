@@ -1,5 +1,5 @@
 from itertools import product
-from multiprocessing import Process, current_process
+import asyncio
 import numpy as np
 import pandas as pd
 from packages.node import Node
@@ -30,6 +30,7 @@ def util_message_propagation(node: Node):
 
     join_utilities = generate_join_utils(util_join_matrix, node)
 
+    node.set_util_message_sent(True)
     node.parent.set_util_message(node.name, join_utilities)
     return counter_cycles
 
@@ -97,7 +98,6 @@ counter_constraints = []
 counter = []
 counter_nodes = 0
 def value_message_propagation(node: Node):
-
     sum = 0
     if node.root:
         node.variable.set_assigment(np.argmax(node.utilities))

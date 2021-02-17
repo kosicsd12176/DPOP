@@ -21,6 +21,7 @@ class Node(object):
         self.root = False
         self._util_messages = {}
 
+
     @property
     def name(self) -> str:
         return self._variable.name
@@ -45,8 +46,22 @@ class Node(object):
     def util_messages(self) -> dict:
         return self._util_messages
 
+    @property
+    def util_message_sent(self) -> bool:
+        return self._util_message_sent
+
+    @property
+    def value_message_sent(self) -> bool:
+        return self._value_message_sent
+
     def set_util_message(self, node_name: str, message: DataFrame):
         self._util_messages[node_name] = message
+
+    def set_util_message_sent(self, value: bool):
+        self._util_message_sent = value
+
+    def set_value_message_sent(self, value: bool):
+        self._value_message_sent = value
 
     def handle_token(self, sender, token):
         token = token[:]

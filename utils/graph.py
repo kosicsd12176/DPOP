@@ -67,6 +67,8 @@ def get_nodes(root: Node):
     nodes.reverse()
     return nodes
 
+
+
 def get_nodes_reverse(root: Node):
         nodes = []
         for n in _visit_tree(root):
